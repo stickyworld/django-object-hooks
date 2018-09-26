@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('target', models.URLField(db_index=True)),
                 ('action', models.CharField(default=b'changed', max_length=100, db_index=True)),
                 ('object_id', models.PositiveIntegerField(db_index=True)),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE)),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
