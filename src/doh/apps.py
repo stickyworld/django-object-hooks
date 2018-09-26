@@ -8,4 +8,4 @@ class DOHConfig(AppConfig):
 
     def ready(self):
         super(DOHConfig, self).ready()
-        from doh import .signals
+        from doh import signals
