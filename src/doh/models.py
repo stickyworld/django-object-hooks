@@ -19,15 +19,18 @@ def get_expiration_date():
 
 class Hook(models.Model):
     DEFAULT_ACTION = 'changed'
-    expiration_date = models.DateTimeField(default=get_expiration_date, db_index=True)
+    expiration_date = models.DateTimeField(default=get_expiration_date,
+                                           db_index=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     target = models.URLField(db_index=True)
-    action = models.CharField(default=DEFAULT_ACTION, max_length=100, db_index=True)
+    action = models.CharField(default=DEFAULT_ACTION, max_length=100,
+                              db_index=True)
     
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField(db_index=True)
     content_object = GenericForeignKey('content_type', 'object_id')
     
@@ -38,4 +41,4 @@ class Hook(models.Model):
         self.save()
 
     def __unicode__(self):
-        return '%s %s %s' %(self.content_type, self.object_id, self.action)
+        return '%s %s %s' % (self.content_type, self.object_id, self.action)
